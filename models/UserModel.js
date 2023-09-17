@@ -1,32 +1,24 @@
-const EntitySchema = require("typeorm").EntitySchema
+const { Sequelize, DataTypes } = require('sequelize');
+const connection = require('../db/connection')();
 
-module.exports = new EntitySchema({
-    name: "User",
-    tableName: "Users",
-    columns: {
-        id: {
-            primary: true,
-            type: "int",
-            generated: true,
-        },
-        name: {
-            type: "varchar",
-        },
-        email: {
-            type: "varchar",
-        },
+const User = connection.define('User', {
+    // Model attributes are defined here
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
     },
-})
-// export class User {
-//     @PrimaryGeneratedColumn()
-//     id: number
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING
+    }
+}, {
+    connection,
+    modelName: 'Users'
+    // Other model options go here
+});
 
-//     @Column()
-//     firstName: string
-
-//     @Column()
-//     lastName: string
-
-//     @Column()
-//     age: number
-// }
+module.exports = User;
