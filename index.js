@@ -26,7 +26,7 @@ const main = async () => {
         db.users = require("./models/UserModel")
         
         console.log('[DB] - Connection has been established successfully.');
-        db.sequelize.sync()
+        // await db.users.sync()
 
     } catch (error) {
         console.log(error);

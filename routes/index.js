@@ -4,15 +4,11 @@ const router = express.Router()
 const authRouter = require("./authRouter.js")
 const authMiddleware = require("../middlewares/authMiddleware.js")
 
-// router.get("/", (req, res) => {
-//     console.log(req.body);
-//     res.send("Main page")
-// })
+
+router.get("/protected-route", authMiddleware , (req, res) => {
+    return res.send("Hello")
+})
 
 router.use(authRouter)
-
-router.get("/protected-route", authMiddleware ,() => {
-    
-})
 
 module.exports = router;

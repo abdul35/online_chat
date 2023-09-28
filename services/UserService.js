@@ -2,7 +2,7 @@ const User = require("../models/UserModel")
 
 const getUserByEmail = async (email) => {
     try {
-        const result = User.findOne(email)
+        const result = User.findOne({email})
         console.log(result);
         return result
     } catch (error) {

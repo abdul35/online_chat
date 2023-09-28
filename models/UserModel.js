@@ -13,12 +13,17 @@ const User = connection.define('User', {
         allowNull: false
     },
     email: {
-        type: DataTypes.STRING
-    }
+        type: DataTypes.STRING,
+        unique: true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
 }, {
     connection,
     modelName: 'Users'
     // Other model options go here
 });
-
+User.sync()
 module.exports = User;
