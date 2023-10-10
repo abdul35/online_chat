@@ -1,4 +1,6 @@
 require("dotenv").config()
+
+const http = require("http")
 const express = require("express")
 const routes = require("./routes/index")
 const connection = require("./db/connection")()
@@ -6,10 +8,11 @@ const { Sequelize } = require("sequelize")
 const app = express()
 const bodyParser = require("body-parser")
 
+
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.get("/", (req, res) => {
-    console.log(req.body);
     res.send("Main page")
 })
 app.use(routes)

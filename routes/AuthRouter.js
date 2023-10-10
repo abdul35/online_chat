@@ -7,7 +7,7 @@ const {body} = require("express-validator")
 router.post(`/register`, 
 body("email").exists({values: "undefined" | "null" | "falsy" | undefined}).notEmpty().isEmail(),
         body("username").exists({values: "undefined" | "null" | "falsy" | undefined}).notEmpty().isString().isLength({min:5, max:15}),
-        body("password").exists({values: "undefined" | "null" | "falsy" | undefined}).notEmpty().isStrongPassword(), 
+        body("password").exists({values: "undefined" | "null" | "falsy" | undefined}).notEmpty(), 
 authController.register)
 
 router.get(`/login`, 

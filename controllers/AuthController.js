@@ -16,14 +16,8 @@ const register = async (req, res) => {
             });
             errors = null
             return
-          }
-      
-        if (!username || typeof username !== 'string'   ||
-            !password || !email || typeof email !== 'string') {
-            return res
-                .status(400)
-                .send("Invalid email or username or password");
         }
+      
         const user = await userService.getUserByEmail(email);
 
         if (user) {
@@ -49,35 +43,23 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { email, password } = req.body
-        const user = await User.findOne({email})
+        const user = await userService.getUserByEmail(email)
 
         if (!user) {
             return res.status(401).json({
                 msg: "User not found."
             })
         }
-        // console.log(user,password, user.password);
+        
         const isPasswordCorrect = await bcrypt.compare(password, user.password) 
         
-        // bcrypt.compare(password, user.hash, (err, res) => {
-        //     if (err) return console.log(err);
-        //     if (!res) return console.log(new Error('Invalid password'));
-            
-        //     // const token = jwt.encode({
-        //     //  username: username,
-        //     //  expire: Date.now() + (1000 * 60 * 60) //1 hour
-        //     // }, tokenSecret);
-            
-        //     console.log(null, token);
-        //    });
-
 
         if (!isPasswordCorrect) {
             return res.status(401).json({
                 msg: "Invalid password."
             })
         }
-        // console.log("user ===== ",user);
+        
         const token = await tokenService.getToken(user);
         
         res.status(201).json({

@@ -25,5 +25,6 @@ const User = connection.define('User', {
     modelName: 'Users'
     // Other model options go here
 });
+
 User.sync()
 module.exports = User;
